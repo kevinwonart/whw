@@ -4,7 +4,7 @@ description: 'Variable Hoisting in Javascript'
 pubDate: 'Nov 03 2023'
 heroImage: '/blog-placeholder-3.jpg'
 ---
-Variable scope in Javascript is something mentioned early in coding tutorials that I've been going through, but I never got to investigate it or really understand it until I reached a roadblock a couple months into my coding journey. Actually yesterday.
+Variable scope in Javascript is something I encountered early in coding tutorials that I've been going through, but I never got to investigate it or really understand it until I reached a roadblock a couple months into my progress.
 
 In this case it starts with ChatGPT:
 
@@ -85,7 +85,7 @@ function findConnectedComponents(graph) {
   return answer;
 }
 ```
-But actually, there is an error in this code and the error is easy to fix but not-easy to understand.
+But actually, there is an error in this code and the error is easy to fix but not easy to understand.
 
 So, in the first for-loop of findConnectedComponents:
 ```
@@ -101,11 +101,11 @@ this part:
 ```
 const component = [];
 ```
-The Javascript console will throw a "ReferenceError: component is not defined" error. Okay, so, it's a scope(reference) issue. 
+The Javascript console will throw a "ReferenceError: component is not defined" error--a scope/reference issue. 
 I try "let component = [];" and get the same error? Okay, so "let" has block scope and that means it can't be called outside of its working block or "{}". I already know that, but thats weird, why am I able to assign a new value to my "const travsersedNode" which is instantiated in a prior block and not the "const  component" that is also in a prior block? And when I use "var" to instantiate "component" why does my program start to work again?
 
-The answer is because of hoisting and temporal dead zone. And it's as complicated as it sounds.
-Before the console executes a script, all variables are "hoisted" at the top of the block or function where the variable is first defined. However, "var" has a unique quality that is given an undefined value that makes the var callable. The point where the "var" is hoisted and the "var" is first defined is called the temporal dead zone. And any call of var in this point will return undefined and not a reference error allowing the var to be callable within this zone.
+The answer is because of hoisting and the temporal dead zone(TDZ). And it's as complicated as it sounds.
+Before the Javascript console executes a script, all variables are "hoisted" at the top of the block or function where that particular variable is first defined. However, "var" has a unique quality in that it is given an undefined value that makes the var callable. The point where the "var" is hoisted and the "var" is first defined is called the temporal dead zone. And any call of var in this point will return undefined and not a reference error allowing the var to be callable and usable within this zone.
 
 Here is a more direct example where you don't have to follow the recursive flow of the problem mentioned earlier.
 ```
