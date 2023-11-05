@@ -62,7 +62,7 @@ Output:
 ```
 **Many frustrating moments later here is a solution I came to:**
 
-```
+```javascript
 function findConnectedComponents(graph) {
   const traversedNode = new Set();
   const answer = [];
@@ -88,7 +88,7 @@ function findConnectedComponents(graph) {
 But actually, there is an error in this code and the error is easy to fix but not easy to understand.
 
 So, in the first for-loop of findConnectedComponents:
-```
+```javascript
   for(let node in graph) {
     if(!traversedNode.has(node)) {
       const component = [];
@@ -98,7 +98,7 @@ So, in the first for-loop of findConnectedComponents:
   }
 ```
 this part: 
-```
+```javascript
 const component = [];
 ```
 The Javascript console will throw a "ReferenceError: component is not defined" error--a scope/reference issue. 
@@ -108,7 +108,7 @@ The answer is because of hoisting and the temporal dead zone(TDZ). And it's as c
 Before the Javascript console executes a script, all variables are "hoisted" at the top of the block or function where that particular variable is first defined. However, "var" has a unique quality in that it is given an undefined value that makes the var callable. The point where the "var" is hoisted and the "var" is first defined is called the temporal dead zone. And any call of var in this point will return undefined and not a reference error allowing the var to be callable and usable within this zone.
 
 Here is a more direct example where you don't have to follow the recursive flow of the problem mentioned earlier.
-```
+```javascript
 console.log(x); // undefined
 /*
 *
@@ -121,7 +121,7 @@ const y = 20;
 ```
 
 Using var is considered bad practice from what I've gathered. So a way around this is to pass the component variable into the function calls instead of relying on hoisting/TDZ. 
-```
+```javascript
 function findConnectedComponents(graph) {
   const traversedNode = new Set();
   const answer = [];
